@@ -68,13 +68,13 @@ http://localhost:3000
 
 ## ✅ Assignment Requirements
 
-| Requirement | Screenshot |
+| Requirement | 
 |------------|------------|
-| Database showing ciphertext stored (not readable text) | [Database](#) |
-| DevTools Network tab on Save (showing only ciphertext/IV) | [Network Save](#) |
-| Locked Account Page | [Locked Account](#) |
-| Network tab during Unlock (showing no request was made) | [Network Unlock](#) |
-| Unlocked/Decrypted Account Page | [Unlocked Account](#) |
+| Database showing ciphertext stored (not readable text) | 
+| DevTools Network tab on Save (showing only ciphertext/IV) | 
+| Locked Account Page | 
+| Network tab during Unlock (showing no request was made) | 
+| Unlocked/Decrypted Account Page |
 
 ---
 
