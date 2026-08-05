@@ -26,34 +26,11 @@ router.get("/account", (req, res) => {
            if (!pwd) return alert('Please enter password');
            
            try {
-             const ivB64 = '${me.iv}';
-             const cipherB64 = '${me.message}';
+             const key = await getKey(pwd);
+             const iv = base64ToBuffer('${me.iv}');
+             const ciphertext = base64ToBuffer('${me.message}');
              
-             const ivStr = atob(ivB64);
-             const iv = new Uint8Array(ivStr.length);
-             for(let i=0; i<ivStr.length; i++) iv[i] = ivStr.charCodeAt(i);
-             
-             const cipherStr = atob(cipherB64);
-             const ciphertext = new Uint8Array(cipherStr.length);
-             for(let i=0; i<cipherStr.length; i++) ciphertext[i] = cipherStr.charCodeAt(i);
-
-             const enc = new TextEncoder();
-             const pwdHash = await crypto.subtle.digest('SHA-256', enc.encode(pwd));
-             const key = await crypto.subtle.importKey(
-               'raw',
-               pwdHash,
-               { name: 'AES-GCM' },
-               false,
-               ['decrypt']
-             );
-             
-             const decryptedBuffer = await crypto.subtle.decrypt(
-               { name: 'AES-GCM', iv: iv },
-               key,
-               ciphertext
-             );
-             
-             const plaintext = new TextDecoder().decode(decryptedBuffer);
+             const plaintext = await decryptData(key, iv, ciphertext);
              
              const displayName = '${me.display_name.replace(/'/g, "\\'")}';
              document.getElementById('messageBox').innerHTML = '💬 <strong>' + displayName + '\\'s message:</strong><br>' + plaintext;
@@ -73,6 +50,7 @@ router.get("/account", (req, res) => {
       <a href="/change-password" class="btn btn-green">🔑 Change Password</a>
     </div>
     <a href="/logout" class="btn btn-pink" style="margin-top: 14px; display:inline-block;">Log Out</a>
+    <script src="/public/crypto.js"></script>
   `));
 });
 

@@ -66,17 +66,21 @@ PORT=8080 npm start
 - Modified `db.js` to include a new `iv` (Initialization Vector) column of type `TEXT` in the `accounts` table.
 - Updated the `INSERT INTO` queries to populate the `iv` column with `null` initially.
 
-### Step 2: Client-Side Message Encryption
-- Modified `routes/message.js` (`/set-message` route) to intercept form submission on the client side.
-- Implemented logic using the Web Crypto API to:
-  - Hash the user's password using `SHA-256`.
-  - Use the hash as the AES-GCM encryption key.
-  - Generate a 12-byte random IV.
-  - Encrypt the message.
-  - Base64 encode both the ciphertext and IV before sending to the server.
-- The server now receives and saves only the ciphertext (`message`) and the `iv` in the database.
+### Step 2: Centralized Web Crypto Module
+- Created exactly one new file: `public/crypto.js`.
+- It acts as a thin wrapper around `crypto.subtle` with functions like `getKey(password)`, `encryptData()`, and `decryptData()`. No logic is duplicated in the route files.
+- This ensures all cryptography runs client-side and maintains a single source of truth for cryptographic operations.
 
-### Step 3: Client-Side Message Decryption
-- Modified `routes/account.js` to initially display a "locked" state if a message exists.
-- The UI requests the user's password and, without network requests, decodes the Base64 IV and ciphertext.
-- It then uses Web Crypto API (identical key generation from the user's password hash) to decrypt the message client-side and dynamically inject it into the DOM upon success.
+### Step 3: Client-Side Message Encryption
+- Modified `routes/message.js` (`/set-message` route) to include `<script src="/public/crypto.js"></script>` and intercept form submission.
+- Calls `getKey()` to hash the password (SHA-256) into an AES-GCM encryption key.
+- Generates a 12-byte random IV.
+- Encrypts the plaintext message.
+- Base64 encodes the ciphertext and IV, sending only the encrypted data to the server.
+
+### Step 4: Client-Side Message Decryption
+- Modified `routes/account.js` to initially display a "locked" UI if an encrypted message and IV exist.
+- Included `<script src="/public/crypto.js"></script>`.
+- The user inputs their password, which triggers `getKey()` to regenerate the AES key client-side (no network request).
+- Base64 decodes the IV and Ciphertext, then calls `decryptData()`.
+- Dynamically injects the decoded message into the DOM upon success.
