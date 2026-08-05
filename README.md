@@ -66,16 +66,6 @@ http://localhost:3000
 
 ---
 
-## 📸 App Walkthrough
-
-| Feature | Screenshot |
-|----------|------------|
-| Log In Page | [Log In](#) |
-| Empty Account Page (No message set) | [Empty Account](#) |
-| Setting a Message (Before Encryption) | [Set Message](#) |
-
----
-
 ## ✅ Assignment Requirements
 
 | Requirement | Screenshot |
