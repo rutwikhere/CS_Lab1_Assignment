@@ -33,7 +33,7 @@ Open your web browser and navigate to: [http://localhost:3000](http://localhost:
 
 *Note: A fresh `classmates.db` database is created automatically upon startup with a few sample accounts to log in with.*
 
-## Screenshots
+
 
 ### App Walkthrough
 - **Log In Page:** [Log In](#)
