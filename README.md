@@ -1,54 +1,104 @@
-# CS_Lab_1 (Message Feature with Web Crypto API)
+# 🔐 CS Lab 1 – Message Feature with Web Crypto API
+
 A simple class portal where students can log in, set a fun personal message on their page, and update their password.
 
-## Assignment Implementation: Web Crypto API
-This repository implements Web Crypto API Message Feature. The application uses the browser's native `crypto.subtle` API to ensure messages are completely encrypted before being sent to the server.
+---
 
-- **Zero-Knowledge Architecture:** The plaintext message and the password used to encrypt it never leave the browser.
-- **Client-Side Cryptography:**
-  - The password is hashed using SHA-256 and used as an AES-GCM key.
-  - A random Initialization Vector (IV) is generated for each message.
-  - The message is encrypted entirely on the client side.
-- **Secure Storage:** Only the ciphertext and the IV are transmitted to the server and stored in the SQLite database.
-- **Client-Side Decryption:** To view the message, the user enters their password on the account page, and the message is decrypted entirely within the browser without any additional network requests.
+## 📖 Assignment Implementation – Web Crypto API
 
-## Installation Guidelines
-Make sure you have Node.js installed.
-Clone this repository and navigate to the project directory:
+This repository implements the **Web Crypto API Message Feature**. The application uses the browser's native `crypto.subtle` API to ensure messages are completely encrypted **before being sent to the server**.
+
+### ✨ Features
+
+- **🔒 Zero-Knowledge Architecture**
+  - The plaintext message and the password used to encrypt it never leave the browser.
+
+- **🛡️ Client-Side Cryptography**
+  - Password is hashed using **SHA-256**.
+  - The hash is used as an **AES-GCM** encryption key.
+  - A random **Initialization Vector (IV)** is generated for every message.
+  - Encryption is performed entirely in the browser.
+
+- **💾 Secure Storage**
+  - Only the **ciphertext** and **IV** are transmitted to the server and stored in the SQLite database.
+
+- **🔓 Client-Side Decryption**
+  - Users enter their password on the account page.
+  - The stored message is decrypted completely in the browser.
+  - No additional network request is made during decryption.
+
+---
+
+## 🚀 Installation
+
+Make sure you have **Node.js** installed.
+
+### Clone the repository
+
 ```bash
 git clone https://github.com/rutwikhere/CS_Lab1_Assignment.git
 cd CS_Lab1_Assignment
 ```
-Install the required dependencies:
+
+### Install dependencies
+
 ```bash
 npm install
 ```
 
-## Execution Guidelines
-Start the local Express server:
+---
+
+## ▶️ Running the Project
+
+Start the Express server:
+
 ```bash
 npm start
 ```
-Open your web browser and navigate to: [http://localhost:3000](http://localhost:3000)
 
-*Note: A fresh `classmates.db` database is created automatically upon startup with a few sample accounts to log in with.*
+Open your browser and visit:
 
+```
+http://localhost:3000
+```
 
+> **Note:** A fresh `classmates.db` database is automatically created on startup with a few sample accounts for testing.
 
-### App Walkthrough
-- **Log In Page:** [Log In](#)
-- **Empty Account Page (No message set):** [Empty Account](#)
-- **Setting a Message (before encryption):** [Set Message](#)
+---
 
-### Assignment Requirements
-- **Database showing ciphertext stored (not readable text):** [Database](#)
-- **The DevTools Network tab on Save (showing only ciphertext/IV):** [Network Save](#)
-- **The locked account page:** [Locked Account](#)
-- **The Network tab during Unlock (showing no request was made):** [Network Unlock](#)
-- **The unlocked/decrypted account page:** [Unlocked Account](#)
+## 📸 App Walkthrough
 
-## Tech Stack
-- **Backend:** Node.js with Express
-- **Database:** better-sqlite3
-- **Frontend:** Plain HTML/CSS, Vanilla JavaScript
-- **Security:** Native Browser Web Crypto API (crypto.subtle)
+| Feature | Screenshot |
+|----------|------------|
+| Log In Page | [Log In](#) |
+| Empty Account Page (No message set) | [Empty Account](#) |
+| Setting a Message (Before Encryption) | [Set Message](#) |
+
+---
+
+## ✅ Assignment Requirements
+
+| Requirement | Screenshot |
+|------------|------------|
+| Database showing ciphertext stored (not readable text) | [Database](#) |
+| DevTools Network tab on Save (showing only ciphertext/IV) | [Network Save](#) |
+| Locked Account Page | [Locked Account](#) |
+| Network tab during Unlock (showing no request was made) | [Network Unlock](#) |
+| Unlocked/Decrypted Account Page | [Unlocked Account](#) |
+
+---
+
+## 🛠️ Tech Stack
+
+| Component | Technology |
+|-----------|------------|
+| **Backend** | Node.js + Express |
+| **Database** | better-sqlite3 |
+| **Frontend** | Plain HTML/CSS, Vanilla JavaScript |
+| **Security** | Native Browser Web Crypto API (`crypto.subtle`) |
+
+---
+
+<p align="center">
+  Built using the native <strong>Web Crypto API</strong> with client-side encryption for secure message storage.
+</p>
